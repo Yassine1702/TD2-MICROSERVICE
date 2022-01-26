@@ -1,0 +1,7 @@
+pileouface/modele/Joueur.class
+pileouface/modele/Partie.class
+pileouface/modele/MauvaisIdentifiantConnexionException.class
+pileouface/modele/JoueurInexistantException.class
+pileouface/modele/Statistiques.class
+pileouface/modele/JoueurDejaConnecteException.class
+pileouface/modele/PseudoDejaPrisException.class

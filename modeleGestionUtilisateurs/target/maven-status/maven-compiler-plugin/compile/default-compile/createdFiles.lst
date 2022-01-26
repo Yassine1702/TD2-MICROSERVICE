@@ -1,0 +1,5 @@
+authent/modele/PseudoDejaPrisException.class
+authent/modele/JoueurInexistantException.class
+authent/modele/MauvaisTokenException.class
+authent/modele/Joueur.class
+authent/modele/DesinscriptionNonAutorisee.class
