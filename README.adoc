@@ -686,14 +686,14 @@ client.test("Request executed successfully", function() {
 package authent.modele;
 
 public interface FacadeJoueur {
-    /**
-     * Inscription d'un nouveau joueur à la POFOL
-     *
-     * @param nouveauJoueur
-     * @param mdp
-     * @throws PseudoDejaPrisException
-     */
-    void inscription(String nouveauJoueur, String mdp) throws PseudoDejaPrisException;
+/**
+* Inscription d'un nouveau joueur à la POFOL
+*
+* @param nouveauJoueur
+* @param mdp
+* @throws PseudoDejaPrisException
+*/
+void inscription(String nouveauJoueur, String mdp) throws PseudoDejaPrisException;
 
     /**
      * Connexion à POFOL
@@ -704,7 +704,7 @@ public interface FacadeJoueur {
      * @throws JoueurInexistantException
      */
     String genererToken(String pseudo, String mdp) throws
-            JoueurInexistantException;
+            JoueurInexistantException, OperationNonAutorisee;
 
 
     /**
@@ -713,7 +713,7 @@ public interface FacadeJoueur {
      * @param mdp
      * @throws JoueurInexistantException
      */
-    void desincription(String pseudo, String mdp) throws JoueurInexistantException, DesinscriptionNonAutorisee;
+    void desincription(String pseudo, String mdp) throws JoueurInexistantException, OperationNonAutorisee;
 
 
     /**
@@ -724,6 +724,7 @@ public interface FacadeJoueur {
      */
     String checkToken(String token) throws MauvaisTokenException;
 }
+
 
 ----
 
@@ -781,21 +782,25 @@ public class FacadeJoueurImpl implements FacadeJoueur {
      */
     @Override
     public String genererToken(String nouveauJoueur, String mdp) throws
-            JoueurInexistantException {
+            JoueurInexistantException, OperationNonAutorisee {
 
         if (!joueurs.containsKey(nouveauJoueur))
             throw new JoueurInexistantException();
 
         Joueur j = joueurs.get(nouveauJoueur);
-
-        String idConnection = UUID.randomUUID().toString();
-        this.joueursConnectes.put(idConnection,j);
-        return idConnection;
+        if (j.checkPassword(mdp)) {
+            String idConnection = UUID.randomUUID().toString();
+            this.joueursConnectes.put(idConnection, j);
+            return idConnection;
+        }
+        else {
+            throw new OperationNonAutorisee();
+        }
     }
 
 
     @Override
-    public void desincription(String pseudo, String mdp) throws JoueurInexistantException, DesinscriptionNonAutorisee {
+    public void desincription(String pseudo, String mdp) throws JoueurInexistantException, OperationNonAutorisee {
         if (!joueurs.containsKey(pseudo))
             throw new JoueurInexistantException();
 
@@ -804,7 +809,7 @@ public class FacadeJoueurImpl implements FacadeJoueur {
             this.joueurs.remove(pseudo);
         }
         else {
-            throw new DesinscriptionNonAutorisee();
+            throw new OperationNonAutorisee();
         }
 
 
@@ -822,6 +827,7 @@ public class FacadeJoueurImpl implements FacadeJoueur {
 
 
 }
+
 
 ----
 
