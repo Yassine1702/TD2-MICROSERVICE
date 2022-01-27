@@ -7,6 +7,9 @@
     <groupId>fr.orleans.m2miage.interrop.td2</groupId>
     <artifactId>microservicepileouface</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+
+    </build>
 
     <packaging>pom</packaging>
     <properties>
@@ -17,6 +20,8 @@
     <modules>
         <module>modeleGestionParties</module>
         <module>modeleGestionUtilisateurs</module>
+        <module>service-authen</module>
+        <module>service-utilisateurs</module>
     </modules>
 
 </project>
