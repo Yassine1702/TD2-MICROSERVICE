@@ -1,4 +1,4 @@
-package com.example.serviceauthen.facade;
+package com.example.serviceutilisateurs.facade;
 
 import pileouface.modele.Joueur;
 import pileouface.modele.MauvaisIdentifiantConnexionException;
@@ -41,7 +41,7 @@ public interface FacadeParties {
      * @param pseudo
      * @return
      */
-    Joueur getJoueur(String pseudo);
+    Joueur getJoueur(String pseudo) throws MauvaisIdentifiantConnexionException;
     /**
      * Permet de supprimer un joueur du SI
      * @param pseudo

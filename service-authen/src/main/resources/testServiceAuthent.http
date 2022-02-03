@@ -26,11 +26,11 @@ client.assert(response.status === 200, "Le token aurait dû être créé");
 POST localhost:8081/authent/token?pseudo=yoh&mdp=fred
 
 > {%
-client.test("Request executed successfully", function() {
+client.te-st("Request executed successfully", function() {
 client.assert(response.status === 401, "Les identifiants ne sont pas corrects et auraient dû provoquer un 401");
-});
+});;
 %}
-###
+###;
 POST localhost:8081/authent/token?pseudo=fred&mdp=fred
 
 > {%

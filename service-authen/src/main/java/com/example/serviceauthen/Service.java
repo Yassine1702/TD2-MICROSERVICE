@@ -43,8 +43,8 @@ public class Service {
     @GetMapping("/token")
     public ResponseEntity checkToken(@RequestParam(name="token") String token)   {
         try {
-            facadeJoueur.checkToken(token);
-            return ResponseEntity.ok().build();
+            String pseudo = facadeJoueur.checkToken(token);
+            return ResponseEntity.ok().body(pseudo);
         } catch (MauvaisTokenException e) {
             return ResponseEntity.notFound().build();
         }

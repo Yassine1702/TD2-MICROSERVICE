@@ -1,5 +1,6 @@
-package com.example.serviceauthen.facade;
+package com.example.serviceutilisateurs.facade;
 
+import com.example.serviceutilisateurs.facade.FacadeParties;
 import org.springframework.stereotype.Component;
 import pileouface.modele.Joueur;
 import pileouface.modele.MauvaisIdentifiantConnexionException;
@@ -27,6 +28,7 @@ public class FacadePartiesImpl implements FacadeParties {
     @Override
     public Partie jouer(String idConnexio, String choix) throws
             MauvaisIdentifiantConnexionException {
+        this.getJoueur(idConnexio);
         this.checkIdConnexion(idConnexio);
         Joueur j = this.joueursActuels.get(idConnexio);
         Partie partie = j.jouer(choix);
@@ -61,7 +63,10 @@ public class FacadePartiesImpl implements FacadeParties {
         return this.joueursActuels.get(idConnexion).getHistorique();
     }
     @Override
-    public Joueur getJoueur(String pseudo) {
+    public Joueur getJoueur(String pseudo) throws MauvaisIdentifiantConnexionException {
+        if(pseudo.isEmpty()){
+            throw new  MauvaisIdentifiantConnexionException();
+        }
         if (joueursActuels.containsKey(pseudo)){
             return joueursActuels.get(pseudo);
         }
